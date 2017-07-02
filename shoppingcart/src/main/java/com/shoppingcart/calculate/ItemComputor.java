@@ -1,17 +1,23 @@
 package com.shoppingcart.calculate;
 
-import com.shoppingcart.bean.ShoppingItem;
-import com.shoppingcart.exception.CartExceptions;
-
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import com.shoppingcart.bean.ShoppingItem;
+import com.shoppingcart.exception.CartExceptions;
 
 
 /**
  * Created by Gyan on 6/30/2017.
  */
 public class ItemComputor implements Computor{
+	
+
 
     private double basketItemSum=0;
 
@@ -52,19 +58,20 @@ public class ItemComputor implements Computor{
      */
 
     public double getBasePriceItem(String itemName) throws CartExceptions{
-        final Map<String, Double> itemBasePriceMap= new HashMap<String,Double>();
         double price=0.0;
-        itemBasePriceMap.put("ORANGES",90.00);
-        itemBasePriceMap.put("BANANAS",30.50);
-        itemBasePriceMap.put("APPLES",150.50);
-        itemBasePriceMap.put("LEMONS",40.0);
-        itemBasePriceMap.put("PEACHES",120.0);
         try {
-            price = itemBasePriceMap.get(itemName.toUpperCase());
-        }
+        	InputStream isr= new FileInputStream("ItemList.properties");
+            Properties props = new Properties();
+        	 props.load(isr);
+        	 price=Double.parseDouble(props.getProperty(itemName.toUpperCase()));
+        	}
         catch (NullPointerException ne){
-            throw new CartExceptions("Price not Found for " + itemName, "Item Not Found");
-        }
+        	 throw new CartExceptions("Price not Found for " + itemName, "Item Not Found");
+        } 
+        catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return price;
     }
 }

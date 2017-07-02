@@ -15,6 +15,7 @@ public class TestShoppingCart {
 
 
     @Test
+    //This will compute the total cost of the items in the basket. The unit price of each item are hard coded
     public void getTotalSumOfItems() {
         ShoppingItem item1 = new ShoppingItem();
         item1.setItemName("oranges");
@@ -36,6 +37,7 @@ public class TestShoppingCart {
     }
 
     @Test
+    //If the quantity is negative it will throw invalid quantity exception.
     public void noOfQuantityException() {
         ShoppingItem item1 = new ShoppingItem();
         item1.setItemName("oranges");
@@ -47,7 +49,7 @@ public class TestShoppingCart {
         itemList.add(item1);
         itemList.add(item2);
         boolean flag=false;
-        ItemComputor compute = new ItemComputor();
+        Computor compute = new ItemComputor();
         try {
             double price = compute.getItemSum(itemList);
         }
@@ -60,6 +62,7 @@ public class TestShoppingCart {
 
     }
     @Test
+    //If the item is not present in the list it will throw Item Not Found Exception
     public void itemNotFoundException(){
     	ShoppingItem item1 = new ShoppingItem();
         item1.setItemName("oranges");
@@ -71,7 +74,7 @@ public class TestShoppingCart {
         itemList.add(item1);
         itemList.add(item2);
         boolean flag=false;
-        ItemComputor compute = new ItemComputor();
+        Computor compute = new ItemComputor();
         try {
             double price = compute.getItemSum(itemList);
         }
